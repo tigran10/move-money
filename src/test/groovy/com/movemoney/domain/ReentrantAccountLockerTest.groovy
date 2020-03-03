@@ -11,12 +11,12 @@ import java.util.stream.Stream
 
 import static com.movemoney.service.Fixtures.*
 
-class AccountLockerTest extends Specification {
+class ReentrantAccountLockerTest extends Specification {
 
 
     def "Lock initial size is"() {
         given:
-        AccountLocker locker = new AccountLocker();
+        ReentrantAccountLocker locker = new ReentrantAccountLocker();
 
         expect:
         locker.locks().size() == 256
@@ -24,7 +24,7 @@ class AccountLockerTest extends Specification {
 
     def "Locks has been created"() {
         given:
-        AccountLocker locker = new AccountLocker();
+        ReentrantAccountLocker locker = new ReentrantAccountLocker();
 
         expect:
         Stream.of(locker).forEach({ lock -> lock != null})
@@ -32,7 +32,7 @@ class AccountLockerTest extends Specification {
 
     def "Locks compute is within 256 and is consistent"() {
         given:
-        AccountLocker locker = new AccountLocker();
+        ReentrantAccountLocker locker = new ReentrantAccountLocker();
 
         expect:
         locker.compute(borisId) == locker.compute(borisId)
@@ -42,7 +42,7 @@ class AccountLockerTest extends Specification {
     def "AccountLocker lock is open for the current thread"() {
         given: "given locker is ready"
         ExecutorService executor = Executors.newFixedThreadPool(1);
-        AccountLocker locker = new AccountLocker();
+        ReentrantAccountLocker locker = new ReentrantAccountLocker();
 
         when: "when borises account is locked"
         locker.lock(borisId)
@@ -55,7 +55,7 @@ class AccountLockerTest extends Specification {
     def "AccountLocker locks underlying lock for other threads"() {
         given: "given locker is ready"
         ExecutorService executor = Executors.newFixedThreadPool(1);
-        AccountLocker locker = new AccountLocker();
+        ReentrantAccountLocker locker = new ReentrantAccountLocker();
 
         when: "when borises account is locked"
         locker.lock(borisId)

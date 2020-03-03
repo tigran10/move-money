@@ -5,12 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.movemoney.domain.Account;
 import com.movemoney.domain.Amount;
 
-public class MoveMoneyInstruction {
+public final class MoveMoneyInstruction {
 
 
-    private Account.Id sourceAccountId;
-    private Account.Id targetAccountId;
-    private Amount amount;
+    private final Account.Id sourceAccountId;
+    private final Account.Id targetAccountId;
+    private final Amount amount;
 
     @JsonCreator
     public MoveMoneyInstruction(

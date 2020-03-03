@@ -8,8 +8,8 @@ import java.util.Objects;
 
 public class AccountData {
 
-    private String firstName;
-    private Amount ongoingBalance;
+    final private String firstName;
+    final private Amount ongoingBalance;
 
     private AccountData(
             String firstName,

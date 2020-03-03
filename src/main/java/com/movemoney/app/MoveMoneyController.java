@@ -21,8 +21,8 @@ import static io.netty.handler.codec.http.HttpResponseStatus.*;
 public class MoveMoneyController {
     private final static Logger LOGGER = Logger.getLogger("MoveMoneyController");
 
-    private Vertx vertx;
-    private Storage storage;
+    private final Vertx vertx;
+    private final Storage storage;
     private Router router;
 
 

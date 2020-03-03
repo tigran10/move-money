@@ -1,7 +1,6 @@
 package com.movemoney.app;
 
 import com.google.inject.Inject;
-
 import com.movemoney.app.config.API;
 import com.movemoney.app.config.AppConfig;
 import com.movemoney.app.config.GlobalHandlers;
@@ -22,9 +21,9 @@ public class ServerVerticle extends AbstractVerticle {
 
     private final static Logger LOGGER = Logger.getLogger("ServerVerticle");
 
-    private MoveMoneyController controller;
+    private final MoveMoneyController controller;
 
-    private AppConfig appConfig;
+    private final AppConfig appConfig;
 
     @Inject
     public ServerVerticle(MoveMoneyController controller, AppConfig appConfig) {

@@ -3,7 +3,7 @@ package com.movemoney.service
 import com.movemoney.app.dto.MoveMoneyInstruction
 import com.movemoney.app.dto.MoveMoneyResult
 import com.movemoney.domain.Account
-import com.movemoney.domain.AccountLocker
+import com.movemoney.domain.ReentrantAccountLocker
 import io.vavr.control.Try
 import spock.lang.Specification
 
@@ -13,7 +13,7 @@ import static com.movemoney.service.Fixtures.*
 
 class TransactionManagerConcurrencyTest extends Specification {
 
-    AccountLocker locker = new AccountLocker()
+    ReentrantAccountLocker locker = new ReentrantAccountLocker()
     ExecutorService executor = Executors.newFixedThreadPool(3);
 
     def "TransactionManager should lock accounts while processing the transaction"() {

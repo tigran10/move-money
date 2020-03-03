@@ -6,8 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 
-public class MoveMoneyResult {
-    private String status;
+public final class MoveMoneyResult {
+
+    final private String status;
 
     private MoveMoneyResult(String status) {
         this.status = Objects.requireNonNull(status, "status");
@@ -24,9 +25,5 @@ public class MoveMoneyResult {
 
     public String getStatus() {
         return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 }

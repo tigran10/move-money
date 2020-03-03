@@ -1,6 +1,6 @@
 package com.movemoney.app;
 
-public class Events {
+final public class Events {
     private Events() {
     }
 

@@ -6,11 +6,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Account extends ReflectionEqualsHashCodeToString {
+public final class Account extends ReflectionEqualsHashCodeToString {
 
-    private Id id;
-    private String firstName;
-    private Amount ongoingBalance;
+    private final Id id;
+    private final String firstName;
+    private final Amount ongoingBalance;
 
     private Account(Id id,
                     String firstName,
