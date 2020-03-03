@@ -1,7 +1,7 @@
 name: Run Gradle on PRs
 on: [push, pull_request]
 jobs:
-  gradle:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -12,4 +12,3 @@ jobs:
 
       - name: Build Move Money
         run: ./gradlew build
-        
