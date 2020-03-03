@@ -23,13 +23,13 @@ Its pretty standard `Java 13` + `gradle`. I have not blended `lombok`, code look
 I have used `vavr` to have a bit functional programming. I used to do scala, i know its not fashionable anymore, but you will probably see lots of scala thinking and hoping  and struggling in my code, with java restrictions:)    
 
 ### Storage
-I have not used any in-memory db impl, as it would only complicate things for test, and just abstracted away `Storage` with simple operations and `List` as a state. Implementation details can be argued, but most of my energy went to other part of solutions, also so I thought probably for exercise sake, it is not really important to design cool in-memory storage.   
+I have not used any in-memory db impl, as it would only complicate things for test, and just abstracted away `Storage` with simple operations and `List` as a state. Implementation details can be argued, but most of my energy went to other part of solutions, also I thought probably for exercise sake, it is not really important to design cool in-memory storage.   
 
 ### Complexity & Locks
 [AccountLocker.java](https://github.com/tigran10/move-money/blob/master/src/main/java/com/movemoney/domain/AccountLocker.java) is the magic place. As I said before, complexity of the task, was thinking about edge cases of money transfer, and solving the problem on localised example. One huge issue was concurrent transactions on the same account, with a state in `Storage`. Some kind of locking was necessary, in real life it would be some distribute place, can be even on storage level, but in my life it is [AccountLocker.java](https://github.com/tigran10/move-money/blob/master/src/main/java/com/movemoney/domain/AccountLocker.java) relying [ReentrantLock](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/ReentrantLock.html). During the transaction, account will be locked, and other threads are going to wait until transaction is done. For the sake of this test, I have kept 256 locks, obviously the more accounts we have, more chances there are to share the same lock. However, worst thing that can happen (hopefully), is unnecessary waiting for different accounts. Again locks size can be configured to any number.    
 
 ### Transaction Manager & Locks
-The whole computation of movemoney transfer is done inside TransactionManager.moveMoney(...), everything before and after is obviously usual chain of calls, data transformation, validation and etc. The method orchestrates the logic with Try monads, and basically does 
+The whole computation of movemoney transfer is done inside [TransactionManager.moveMoney(...)](https://github.com/tigran10/move-money/blob/master/src/main/java/com/movemoney/service/TransactionManager.java#L38), everything before and after is obviously usual chain of calls, data transformation, validation and etc. The method orchestrates the logic with Try monads, and basically does 
 * Lock accounts before going  ahead with transfer
 * Tries to credit source account
 * Tries to debit target account
