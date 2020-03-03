@@ -22,6 +22,10 @@ Its pretty standard `Java 13` + `gradle`. I have not blended `lombok`, code look
 ### Being Functional with Java
 I have used `vavr` to have a bit functional programming. I used to do scala, i know its not fashionable anymore, but you will probably see lots of scala thinking and hoping  and struggling in my code, with java restrictions:)    
 
+### CI is Github
+PRs and commits are being checked in [github](https://github.com/tigran10/move-money/actions). Very simple CI for now. More to come here when I will merge E2E. 
+
+
 ### Storage
 I have not used any in-memory db impl, as it would only complicate things for test, and just abstracted away `Storage` with simple operations and `List` as a state. Implementation details can be argued, but most of my energy went to other part of solutions, also I thought probably for exercise sake, it is not really important to design cool in-memory storage.   
 
