@@ -2,7 +2,7 @@ package com.movemoney.service
 
 import com.movemoney.app.dto.MoveMoneyInstruction
 import com.movemoney.domain.Account
-import com.movemoney.domain.AccountLocker
+import com.movemoney.domain.ReentrantAccountLocker
 import com.movemoney.domain.Amount
 import com.movemoney.domain.BacsTransaction
 import com.movemoney.domain.Currency
@@ -19,7 +19,7 @@ class TransactionManagerTest extends Specification {
 
     def setup() {
         storage = Mock(Storage)
-        transactionManager = new TransactionManager(storage, new AccountLocker())
+        transactionManager = new TransactionManager(storage, new ReentrantAccountLocker())
     }
 
     def "TransactionManager should return not found error if source account is not found"() {
@@ -69,7 +69,7 @@ class TransactionManagerTest extends Specification {
     def "TransactionManager should return error if amount cant be credited for unknown reason"() {
 
         given: "Transaction will fail with random error, during crediting source account"
-        def failingTransactionManager = Spy(new TransactionManager(storage, new AccountLocker()))
+        def failingTransactionManager = Spy(new TransactionManager(storage, new ReentrantAccountLocker()))
         failingTransactionManager.creditBalance(_, _) >> Try.Failure.failure(new RuntimeException("Random error"))
         storage.findAccount(borisId) >> Optional.of(boris)
         storage.findAccount(theresaId) >> Optional.of(theresa)
@@ -92,7 +92,7 @@ class TransactionManagerTest extends Specification {
     def "TransactionManager should return error if amount cant be debited, and rollback done if it was credited from source account"() {
 
         given: "Transaction will fail with random error, during debiting target account"
-        def failingTransactionManager = Spy(new TransactionManager(storage, new AccountLocker()))
+        def failingTransactionManager = Spy(new TransactionManager(storage, new ReentrantAccountLocker()))
         failingTransactionManager.debitBalance(_, _) >> Try.Failure.failure(new RuntimeException("Random error"))
         storage.findAccount(borisId) >> Optional.of(boris)
         storage.findAccount(theresaId) >> Optional.of(theresa)
@@ -115,7 +115,7 @@ class TransactionManagerTest extends Specification {
     def "TransactionManager should credit source account, and debit target account"() {
 
         given: "boris and theresa exist sufficient funds"
-        def localTransactionManager = Spy(new TransactionManager(storage, new AccountLocker()))
+        def localTransactionManager = Spy(new TransactionManager(storage, new ReentrantAccountLocker()))
         storage.findAccount(borisId) >> Optional.of(boris)
         storage.findAccount(theresaId) >> Optional.of(theresa)
 
@@ -153,7 +153,7 @@ class TransactionManagerTest extends Specification {
     def "TransactionManager should save transaction for successful ops"() {
 
         given: "boris and theresa exist sufficient funds"
-        def localTransactionManager = Spy(new TransactionManager(storage, new AccountLocker()))
+        def localTransactionManager = Spy(new TransactionManager(storage, new ReentrantAccountLocker()))
         storage.findAccount(borisId) >> Optional.of(boris)
         storage.findAccount(theresaId) >> Optional.of(theresa)
 

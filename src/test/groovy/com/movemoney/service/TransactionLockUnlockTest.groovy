@@ -1,7 +1,7 @@
 package com.movemoney.service
 
 import com.movemoney.app.dto.MoveMoneyInstruction
-import com.movemoney.domain.AccountLocker
+import com.movemoney.domain.ReentrantAccountLocker
 import com.movemoney.storage.Storage
 import io.vavr.control.Try
 import spock.lang.Specification
@@ -12,11 +12,11 @@ class TransactionLockUnlockTest extends Specification {
 
     Storage storage
     TransactionManager transactionManager
-    AccountLocker locker
+    ReentrantAccountLocker locker
 
     def setup() {
         storage = Stub(Storage)
-        locker = Mock(AccountLocker)
+        locker = Mock(ReentrantAccountLocker)
         transactionManager = Spy(new TransactionManager(storage, locker))
     }
 

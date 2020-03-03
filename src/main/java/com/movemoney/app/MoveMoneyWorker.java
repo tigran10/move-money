@@ -1,8 +1,8 @@
 package com.movemoney.app;
 
 import com.google.inject.Inject;
-import com.movemoney.service.TransactionManager;
 import com.movemoney.app.dto.MoveMoneyInstruction;
+import com.movemoney.service.TransactionManager;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.eventbus.MessageConsumer;
@@ -19,7 +19,7 @@ public class MoveMoneyWorker extends AbstractVerticle {
 
     private final static Logger LOGGER = Logger.getLogger("MoveMoneyWorker");
 
-    private TransactionManager service;
+    private final TransactionManager service;
 
     @Inject
     public MoveMoneyWorker(TransactionManager service) {

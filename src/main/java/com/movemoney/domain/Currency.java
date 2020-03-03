@@ -6,11 +6,11 @@ public enum Currency {
     GBP("British Pound", "£", "001");
 
     @JsonProperty
-    private String name;
+    private final String name;
     @JsonProperty
-    private String symbol;
+    private final String symbol;
     @JsonProperty
-    private String code;
+    private final String code;
 
 
     Currency(String name, String symbol, String code) {

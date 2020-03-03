@@ -9,10 +9,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 //distributed
-public class MemoryStorage implements Storage {
+public final class MemoryStorage implements Storage {
 
-    private List<BacsTransaction> bacsTransactions = new ArrayList<>(); //immutabilty
-    private List<Account> accounts = new ArrayList<>();
+    private final List<BacsTransaction> bacsTransactions = new ArrayList<>(); //immutabilty
+    private final List<Account> accounts = new ArrayList<>();
 
 
     @Override
@@ -54,7 +54,7 @@ public class MemoryStorage implements Storage {
     @Override
     public void deleteAccount(Account.Id id) throws StorageException {
         findAccount(id).ifPresentOrElse(
-                (s) -> accounts.remove(s),
+                accounts::remove,
                 () -> {
                     throw new StorageException(ExeptionErrorCode.RESOURCE_NOT_FOUND);
                 }

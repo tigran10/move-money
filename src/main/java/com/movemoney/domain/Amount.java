@@ -8,15 +8,15 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
 
-public class Amount extends ReflectionEqualsHashCodeToString {
+public final class Amount extends ReflectionEqualsHashCodeToString {
 
     @JsonProperty
     @NotNull
-    private BigDecimal value;
+    private final BigDecimal value;
 
     @JsonProperty
     @NotNull
-    private Currency currency;
+    private final Currency currency;
 
 
     private Amount(BigDecimal value,

@@ -12,15 +12,15 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-public class BacsTransaction extends ReflectionEqualsHashCodeToString {
+public final class BacsTransaction extends ReflectionEqualsHashCodeToString {
 
 
     @NotNull
     @JsonProperty("transactionId")
-    private Id id;
+    private final Id id;
 
-    private Account.Id sourceAccountId;
-    private Account.Id targetAccountId;
+    private final Account.Id sourceAccountId;
+    private final Account.Id targetAccountId;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
