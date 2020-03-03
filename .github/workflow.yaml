@@ -12,3 +12,4 @@ jobs:
 
       - name: Build Move Money
         run: ./gradlew build
+        
