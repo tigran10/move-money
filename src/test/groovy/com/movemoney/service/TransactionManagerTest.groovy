@@ -12,6 +12,7 @@ import spock.lang.Specification
 
 import static com.movemoney.service.Fixtures.*
 
+
 class TransactionManagerTest extends Specification {
 
     Storage storage

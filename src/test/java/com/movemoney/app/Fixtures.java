@@ -1,5 +1,6 @@
 package com.movemoney.app;
 
+import com.movemoney.app.dto.MoveMoneyInstruction;
 import com.movemoney.domain.Account;
 import com.movemoney.domain.Amount;
 import com.movemoney.domain.BacsTransaction;
@@ -48,9 +49,21 @@ class Fixtures {
 
     public static BacsTransaction theresaSendsMoneyToBoris = BacsTransaction.of(
             theresaSendsMoneyToBorisTransactionId,
+            theresaId,
+            borisId,
+            knownDate,
+            hundred
+    );
+
+    public static MoveMoneyInstruction borisSendsMoneyToTheresaInstruction = new MoveMoneyInstruction(
             borisId,
             theresaId,
-            knownDate,
+            hundred
+    );
+
+    public static MoveMoneyInstruction theresaSendsMoneyToBorisInstruction = new MoveMoneyInstruction(
+            theresaId,
+            borisId,
             hundred
     );
 }

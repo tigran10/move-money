@@ -40,8 +40,7 @@ public class ServerVerticleTest {
 
     @Mock
     Storage storage;
-
-
+    
     @BeforeAll
     public void init(Vertx vertx) throws Exception {
         MockitoAnnotations.initMocks(this);
@@ -49,14 +48,6 @@ public class ServerVerticleTest {
 
     }
 
-    private ServerVerticle initVerticle(Vertx vertx) throws IOException {
-        ServerSocket socket = new ServerSocket(0);
-        port = socket.getLocalPort();
-        socket.close();
-        MoveMoneyController moveMoneyController = new MoveMoneyController(vertx, storage);
-        AppConfig appConfig = new AppConfig(30, 30, port);
-        return new ServerVerticle(moveMoneyController, appConfig);
-    }
 
     @Test
     public void testHealhCheck(Vertx vertx, VertxTestContext testContext) {
@@ -236,6 +227,15 @@ public class ServerVerticleTest {
                     });
                 }));
 
+    }
+
+    private ServerVerticle initVerticle(Vertx vertx) throws IOException {
+        ServerSocket socket = new ServerSocket(0);
+        port = socket.getLocalPort();
+        socket.close();
+        MoveMoneyController moveMoneyController = new MoveMoneyController(vertx, storage);
+        AppConfig appConfig = new AppConfig(30, 30, port);
+        return new ServerVerticle(moveMoneyController, appConfig);
     }
 
 }
