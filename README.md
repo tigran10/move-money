@@ -46,7 +46,7 @@ On `vert.x` side, I am deploying [MoveMoneyController](https://github.com/tigran
 
 ### Testing  
 I have used `spock`. It was enough for now, so did not brought more toys in. Testing the concurrency and locks was done with usual executors and Futures.
-For E2E, i am using own kit from vert.x, and probably will add scalatest with rest assured for e2e bdd (I have it 50% done).
+For api test, i am using blend of jupiter & vertx test.
 
 ### Error handling
 All known and unkown erros will be bubble up to api level. Try monads will be treated respectivly, to deliver the error. Vert.x comes with some stupid limitations handling custom exceptions on the event bus. So I am not fun how it works, however, maybe i am not familiar with vert.x lifehacks, as its pretty new thing for me. 
