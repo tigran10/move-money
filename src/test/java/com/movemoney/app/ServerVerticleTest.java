@@ -40,12 +40,13 @@ public class ServerVerticleTest {
 
     @Mock
     Storage storage;
-    
+
     @BeforeAll
     public void init(Vertx vertx) throws Exception {
         MockitoAnnotations.initMocks(this);
         vertx.deployVerticle(initVerticle(vertx), new DeploymentOptions());
 
+        Thread.sleep(2000); //ci fails
     }
 
 

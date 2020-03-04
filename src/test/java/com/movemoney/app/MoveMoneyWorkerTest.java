@@ -59,6 +59,7 @@ public class MoveMoneyWorkerTest {
         vertx.eventBus().registerDefaultCodec(MoveMoneyInstruction.class, new TransferInstructionCodec());
         vertx.eventBus().registerDefaultCodec(AccountData.class, new AccountDataCodec());
 
+        Thread.sleep(2000);
     }
 
 
