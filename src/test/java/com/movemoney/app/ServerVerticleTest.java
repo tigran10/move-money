@@ -12,6 +12,7 @@ import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.codec.BodyCodec;
 import io.vertx.junit5.VertxExtension;
 import io.vertx.junit5.VertxTestContext;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -48,6 +49,13 @@ public class ServerVerticleTest {
 
         Thread.sleep(2000); //ci fails
     }
+
+    @AfterAll
+    public void teardown(Vertx vertx, VertxTestContext testContext) throws Exception {
+        vertx.close(testContext.completing());
+    }
+
+
 
 
     @Test
