@@ -182,3 +182,4 @@ curl localhost:8181/api/accounts/175ae967-c504-4bc3-b4d3-656ab419e4b0/transactio
 * Changing server port is not done via system variables yet. So requires touching the code, sorry for that :(
 * Some vert.x gluecode, I am not sure if its the best way to do it, if you guys happen to use vert.x a lot, and I have missed some cool stuff, sorry for that, feedback pls :)
 * Github actions pipeline to follow.
+* Warnings at the start of the application, I know about them. Apparently Vertx version that i have used do not have codex for messages traveling on a wire, even if they are jackson ready. I had to create a custom generic codec, and was a bit naughty with reflection. 
