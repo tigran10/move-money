@@ -22,7 +22,7 @@ public final class Account extends ReflectionEqualsHashCodeToString {
 
     @JsonCreator
     public static Account of(
-            @JsonProperty("accountId") Id id,
+            @JsonProperty("id") Id id,
             @JsonProperty("firstName") String firstName,
             @JsonProperty("ongoingBalance") Amount ongoingBalance
     ) {
