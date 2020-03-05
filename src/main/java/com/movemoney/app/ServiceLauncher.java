@@ -1,7 +1,6 @@
 package com.movemoney.app;
 
-import com.movemoney.app.codecs.AccountDataCodec;
-import com.movemoney.app.codecs.TransferInstructionCodec;
+import com.movemoney.app.codecs.AppCodecs;
 import com.movemoney.app.dto.AccountData;
 import com.movemoney.app.dto.MoveMoneyInstruction;
 import io.vavr.jackson.datatype.VavrModule;
@@ -25,7 +24,7 @@ public class ServiceLauncher extends AbstractVerticle {
     }
 
     private void registerCodecs(Vertx vertx) {
-        vertx.eventBus().registerDefaultCodec(MoveMoneyInstruction.class, new TransferInstructionCodec());
-        vertx.eventBus().registerDefaultCodec(AccountData.class, new AccountDataCodec());
+        vertx.eventBus().registerDefaultCodec(MoveMoneyInstruction.class, new AppCodecs.TransferInstructionCodec());
+        vertx.eventBus().registerDefaultCodec(AccountData.class, new AppCodecs.AccountDataCodec());
     }
 }
