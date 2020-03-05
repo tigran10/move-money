@@ -1,8 +1,8 @@
 package com.movemoney.app;
 
 
-import com.movemoney.app.codecs.AccountDataCodec;
-import com.movemoney.app.codecs.TransferInstructionCodec;
+
+import com.movemoney.app.codecs.AppCodecs;
 import com.movemoney.app.config.AppConfig;
 import com.movemoney.app.dto.AccountData;
 import com.movemoney.app.dto.MoveMoneyInstruction;
@@ -57,8 +57,8 @@ public class MoveMoneyWorkerTest {
         vertx.deployVerticle(initServerVerticle(vertx), new DeploymentOptions());
         vertx.deployVerticle(new MoveMoneyWorker(transactionManager), new DeploymentOptions().setWorker(true));
 
-        vertx.eventBus().registerDefaultCodec(MoveMoneyInstruction.class, new TransferInstructionCodec());
-        vertx.eventBus().registerDefaultCodec(AccountData.class, new AccountDataCodec());
+        vertx.eventBus().registerDefaultCodec(MoveMoneyInstruction.class, new AppCodecs.TransferInstructionCodec());
+        vertx.eventBus().registerDefaultCodec(AccountData.class, new AppCodecs.AccountDataCodec());
 
         Thread.sleep(2000); //ci starts earlier
     }
