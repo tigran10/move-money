@@ -76,9 +76,10 @@ Really sorry struggling with time for swagger.
 
 ```bash
 
-% curl -H "Content-Type: application/json"  -d '{"firstName":"Theresa","ongoingBalance":{"value":12.22,"currency":"GBP","displayValue":12.22}}' localhost:8181/api/accounts --verbose
-
-*   Trying ::1...
+% curl -H "Content-Type: application/json"  -d '{"firstName":"Theresa","ongoingBalance":{"value":12.22,"currency":"GBP","displayValue":12.22}}' localhost:8181/api/accounts --verbose | jq . -
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying ::1...
 * TCP_NODELAY set
 * Connected to localhost (::1) port 8181 (#0)
 > POST /api/accounts HTTP/1.1
@@ -88,34 +89,62 @@ Really sorry struggling with time for swagger.
 > Content-Type: application/json
 > Content-Length: 94
 >
+} [94 bytes data]
 * upload completely sent off: 94 out of 94 bytes
 < HTTP/1.1 201 Created
 < content-length: 138
 <
+{ [138 bytes data]
+100   232  100   138  100    94  10615   7230 --:--:-- --:--:-- --:--:-- 17846
 * Connection #0 to host localhost left intact
-{"firstName":"Theresa","ongoingBalance":{"value":12.22,"currency":"GBP","displayValue":12.22},"id":"12e061d6-7527-4d05-9553-3c84d28ed72a"}* 
+* Closing connection 0
+{
+  "id": "0ec1b5df-b9a2-4e8f-97f7-dae63345c9e0",
+  "firstName": "Theresa",
+  "ongoingBalance": {
+    "value": 12.22,
+    "currency": "GBP",
+    "displayValue": 12.22
+  }
+}
 ```
 
 #### Find account(s)
 ```bash
-curl localhost:8181/api/accounts/175ae967-c504-4bc3-b4d3-656ab419e4b0 --verbose
-*   Trying ::1...
+
+curl localhost:8181/api/accounts/0ec1b5df-b9a2-4e8f-97f7-dae63345c9e0 --verbose | jq . -
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying ::1...
 * TCP_NODELAY set
 * Connected to localhost (::1) port 8181 (#0)
-> GET /api/accounts/175ae967-c504-4bc3-b4d3-656ab419e4b0 HTTP/1.1
+> GET /api/accounts/0ec1b5df-b9a2-4e8f-97f7-dae63345c9e0 HTTP/1.1
 > Host: localhost:8181
 > User-Agent: curl/7.64.1
 > Accept: */*
 >
 < HTTP/1.1 200 OK
-< content-length: 136
+< content-length: 138
 <
+{ [138 bytes data]
+100   138  100   138    0     0  17250      0 --:--:-- --:--:-- --:--:-- 17250
 * Connection #0 to host localhost left intact
-{"firstName":"Theresa","ongoingBalance":{"value":2.00,"currency":"GBP","displayValue":2.00},"id":"175ae967-c504-4bc3-b4d3-656ab419e4b0"}* 
+* Closing connection 0
+{
+  "id": "0ec1b5df-b9a2-4e8f-97f7-dae63345c9e0",
+  "firstName": "Theresa",
+  "ongoingBalance": {
+    "value": 12.22,
+    "currency": "GBP",
+    "displayValue": 12.22
+  }
+}* 
 
 
-% curl localhost:8181/api/accounts --verbose
-*   Trying ::1...
+% curl localhost:8181/api/accounts --verbose | jq . -
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying ::1...
 * TCP_NODELAY set
 * Connected to localhost (::1) port 8181 (#0)
 > GET /api/accounts HTTP/1.1
@@ -124,10 +153,23 @@ curl localhost:8181/api/accounts/175ae967-c504-4bc3-b4d3-656ab419e4b0 --verbose
 > Accept: */*
 >
 < HTTP/1.1 200 OK
-< content-length: 414
+< content-length: 557
 <
+{ [557 bytes data]
+100   557  100   557    0     0  42846      0 --:--:-- --:--:-- --:--:-- 42846
 * Connection #0 to host localhost left intact
-[{"firstName":"Theresa","ongoingBalance":{"value":12.22,"currency":"GBP","displayValue":12.22},"id":"12e061d6-7527-4d05-9553-3c84d28ed72a"},{"firstName":"Theresa","ongoingBalance":{"value":2.00,"currency":"GBP","displayValue":2.00},"id":"175ae967-c504-4bc3-b4d3-656ab419e4b0"},{"firstName":"Boris","ongoingBalance":{"value":22.44,"currency":"GBP","displayValue":22.44},"id":"7d1c76e3-255b-4e55-a7c6-c278b8450484"}]* Closing connection 0
+* Closing connection 0
+[
+  {
+    "id": "0ec1b5df-b9a2-4e8f-97f7-dae63345c9e0",
+    "firstName": "Theresa",
+    "ongoingBalance": {
+      "value": 12.22,
+      "currency": "GBP",
+      "displayValue": 12.22
+    }
+  }
+]
 ```
 
 #### Find Transactions for account
@@ -146,8 +188,19 @@ curl localhost:8181/api/accounts/175ae967-c504-4bc3-b4d3-656ab419e4b0/transactio
 < content-length: 282
 <
 * Connection #0 to host localhost left intact
-[{"sourceAccountId":"175ae967-c504-4bc3-b4d3-656ab419e4b0","targetAccountId":"7d1c76e3-255b-4e55-a7c6-c278b8450484","transactionDate":"2020-03-03T13:03:50.050939","amount":{"value":10.22,"currency":"GBP","displayValue":10.22},"transactionId":"02a9db4b-6ec8-4128-b05e-5758608c8f04"}]*
-
+[
+  {
+    "sourceAccountId": "175ae967-c504-4bc3-b4d3-656ab419e4b0",
+    "targetAccountId": "7d1c76e3-255b-4e55-a7c6-c278b8450484",
+    "transactionDate": "2020-03-03T13:03:50.050939",
+    "amount": {
+      "value": 10.22,
+      "currency": "GBP",
+      "displayValue": 10.22
+    },
+    "transactionId": "02a9db4b-6ec8-4128-b05e-5758608c8f04"
+  }
+]*
 ```
 
 #### Finally, Move Money 
@@ -171,7 +224,9 @@ curl localhost:8181/api/accounts/175ae967-c504-4bc3-b4d3-656ab419e4b0/transactio
 < content-length: 113
 <
 * Connection #0 to host localhost left intact
-{"status":"amount 10.22 moved from 175ae967-c504-4bc3-b4d3-656ab419e4b0 to 7d1c76e3-255b-4e55-a7c6-c278b8450484"}*
+{
+  "status": "amount 10.22 moved from 175ae967-c504-4bc3-b4d3-656ab419e4b0 to 7d1c76e3-255b-4e55-a7c6-c278b8450484"
+}*
 ```
 
 
