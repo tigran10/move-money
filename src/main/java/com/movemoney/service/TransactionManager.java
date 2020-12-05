@@ -61,7 +61,7 @@ public class TransactionManager {
 
     @VisibleForTesting
     void lockAccounts(Account.Id... accountsToLock) {
-        Stream.of(accountsToLock).forEach(id -> accountLocker.lock(id));
+        Stream.of(accountsToLock).sorted().forEach(id -> accountLocker.lock(id));
     }
 
     @VisibleForTesting

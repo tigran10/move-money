@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
-public abstract class IdentifierUUID<REFERENCED_TYPE> {
+public abstract class IdentifierUUID<REFERENCED_TYPE> implements Comparable<UUID> {
 
     private final UUID uuid;
 
@@ -47,4 +47,9 @@ public abstract class IdentifierUUID<REFERENCED_TYPE> {
         return ToStringBuilder.reflectionToString(this, SHORT_PREFIX_STYLE);
     }
 
+
+    @Override
+    public int compareTo(UUID o) {
+        return this.uuid.compareTo(o);
+    }
 }
